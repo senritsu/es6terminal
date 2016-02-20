@@ -58,9 +58,19 @@ class Terminal {
         return userInput
     }
 
-    startInteractive() {
+    get echoHandler() {
+        return (text) => {
+            this.write(text)
+        }
+    }
+
+    startInteractive(handler, echoInput) {
         this.interactive = true
-        const loop = () => this.prompt().then(() => { if (this.interactive) loop() })
+        const loop = () => {
+            this.prompt(echoInput)
+            .then(handler)
+            .then(() => { if (this.interactive) loop() })
+        }
         loop()
     }
 
