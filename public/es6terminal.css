@@ -34,6 +34,36 @@
     z-index: -1;
 }
 
+.terminal-background[theme=amber] {
+    color: #ffbf00;
+    background-color: #2D2504;
+}
+
+.terminal-background[theme=amber] .terminal-caret {
+    color: #ffbf00;
+    background-color: #ffbf00;
+}
+
+.terminal-background[theme=green] {
+    color: #8FFF00;
+    background-color: #0f1d07;
+}
+
+.terminal-background[theme=green] .terminal-caret {
+    color: #8FFF00;
+    background-color: #8FFF00;
+}
+
+.terminal-background[theme=c64] {
+    color: #7c70da;
+    background-color: #3d31a2;
+}
+
+.terminal-background[theme=c64] .terminal-caret {
+    color: #7c70da;
+    background-color: #7c70da;
+}
+
 @keyframes blink {
     50% {
         opacity: 0;

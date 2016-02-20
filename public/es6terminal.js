@@ -13,6 +13,7 @@ class Terminal {
         }
 
         this.background = node('div', 'terminal-background', host)
+        this.background.setAttribute('theme', 'default')
         this.input = node('input', null, this.background)
         this.scrollContainer = node('div', 'terminal-scroll', this.background)
         this.outputArea = node('p', 'terminal-output-area', this.scrollContainer)
