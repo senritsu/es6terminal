@@ -49,6 +49,8 @@ terminal.prompt().then((output) => console.log(`prompt is completed, ${output} w
 
 The promise is resolved after the user input is submitted, input handlers are finished and the output was written to the terminal.
 
+##### Interactive mode
+
 ```javascript
 terminal.startInteractive()
 terminal.startInteractive(options)
@@ -56,6 +58,8 @@ terminal.stopInteractive()
 ```
 
 In interactive mode any completed user input will automatically followed by a new prompt.
+
+##### Keyboard interrupt
 
 `Ctrl-C` can be used to cancel a prompt or interactive mode.
 
