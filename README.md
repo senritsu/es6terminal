@@ -2,20 +2,30 @@
 
 ## About
 
-A multipurpose terminal written in pure es6/css3.
+A multipurpose terminal written in pure es6/css3, available under the MIT license.
 
 [![Screenshot of es6terminal](https://senritsu.github.io/es6terminal/images/screenshot_01.png)](http://senritsu.github.io/es6terminal)
 
 The terminal can be used as an interface for async communication with a server, or for pure javascript applications.
 
-The project was inspired by [terminaljs](https://github.com/eosterberg/terminaljs)
-
-## Demo
-
 Demo available at http://senritsu.github.io/es6terminal
 
+The project was inspired by [terminaljs](https://github.com/eosterberg/terminaljs)
+
+- [Description](#desc)
+  - [Initialization](#init)
+  - [Prompts](#prompts)
+  - [Prompt Options](#prompt-options)
+  - [Input Handlers](#handlers)
+    - [text](#text)
+    - [JSON](#json)
+- [Additional API methods](#api)
+- [License (MIT)](#license)
+
+<a name="desc"/>
 ## Description
 
+<a name="init"/>
 ### Initialization
 
 ```javascript
@@ -26,6 +36,7 @@ var terminal = new Terminal('.some-class')
 
 Creates a new terminal hosted in the specified element. The terminal will fill the element completely.
 
+<a name="prompts"/>
 ### Prompts
 
 ```javascript
@@ -51,6 +62,7 @@ In interactive mode any completed user input will automatically followed by a ne
 
 `Ctrl-C` can be used to cancel a prompt or interactive mode.
 
+<a name="prompt-options"/>
 ### Prompt options
 
 Prompts and interactive mode can be configured using an options object. The default options object looks like this:
@@ -67,6 +79,7 @@ Prompts and interactive mode can be configured using an options object. The defa
 `echoInput` controls if the user input including the prompt message is echoed back to the terminal on submit.
 `handler` is an input handler to be used.
 
+<a name="handlers"/>
 ### Input handlers
 
 An input handler takes the form `(input) => output`, where `input` is the text submitted by the user, and `output` is what should be written back to the terminal.
@@ -91,11 +104,17 @@ let echoHandler = terminal.handlers.echo()
 
 Replicates the default behaviour of the terminal, included for completeness.
 
+<a name="text"/>
+##### text
+
 ```javascript
 let ajaxTextHandler = terminal.handlers.ajaxText(url)
 ```
 
 Communication using content type `text/plain`. `POST`s the input to the given `url` endpoint and outputs the response text to the terminal.
+
+<a name="json"/>
+##### JSON
 
 ```javascript
 let ajaxJsonHandler = terminal.handlers.ajaxJson(url, inputToObject, objectToOutput)
@@ -103,16 +122,22 @@ let ajaxJsonHandler = terminal.handlers.ajaxJson(url, inputToObject, objectToOut
 
 Communication using content type `application/json`. `inputToObject` is expected to transform the input text to a plain javascript object. The object is serialized and sent to the given `url`. `objectToOutput` is expected to transform the response javascript object into text that should be written to the terminal.
 
-Example:
+###### Example
 
 ```javascript
 let inputToObject = (input) => ({ number: parseInt(input) })
 // server calculates square of the number and sends it back as {number: x, square: y}
-let objectToOutput = (response) => `${response.number} * ${response.number} = ${response.squared}`
+let objectToOutput = (response) => `server says ${response.number} * ${response.number} = ${response.squared}`
 let handler = terminal.handlers.ajaxJson('http://localhost:3000/api/square', inputToObject, objectToOutput)
 terminal.prompt({message: 'type a number to be squared:', handler})
 ```
 
+```
+type a number to be squared: 3
+server says 3 * 3 = 9
+```
+
+<a name="api"/>
 ### Additional API methods
 
 ```javascript
@@ -159,6 +184,7 @@ terminal.finishInput(echo)
 
 Cancels the current prompt or interactive mode. `true` for the `echo` parameter results in the current prompt and input being echoed to the terminal. Defaults to `false`.
 
+<a name="license"/>
 ## License
 
 The MIT License (MIT)
