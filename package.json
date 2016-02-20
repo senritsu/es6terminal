@@ -1,14 +1,22 @@
 {
   "name": "es6terminal",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A simple javascript terminal written in pure ES6",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/senritsu/es6terminal.git"
+  },
   "author": "senritsu",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/senritsu/es6terminal/issues"
+  },
+  "homepage": "https://github.com/senritsu/es6terminal#readme",
   "devDependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4"
