@@ -36,8 +36,8 @@ const ajaxJsonHandlerFactory = (url, inputToObject, objectToOutput) => (input) =
 }
 
 class Terminal {
-    constructor(host) {
-        this.element = host
+    constructor(hostQueryString) {
+        this.element = document.querySelector(hostQueryString)
         this.interactive = false
         this.autoscroll = true
 
