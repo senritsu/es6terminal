@@ -90,6 +90,11 @@ class Terminal {
 
         return new Promise((resolve, reject) => {
             const listener = (event) => {
+                if (event.keyCode == 67 && event.ctrlKey) {
+                    this.input.removeEventListener('keydown', listener)
+                    this.finishInput(false)
+                    reject("Keyboard Interrupt")
+                }
                 if (event.keyCode == 13) {
                     this.input.removeEventListener('keydown', listener)
                     resolve(this.finishInput(echoInput))
