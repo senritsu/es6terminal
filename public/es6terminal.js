@@ -24,10 +24,6 @@ class Terminal {
         this.input.setAttribute('type','text')
         this.inputCaret.textContent = 'C'
 
-        for (var i = 0; i < 5; i++) {
-            this.write(`Test ${i}`)
-        }
-
         this.background.addEventListener('click', (event) => { if(this.inputArea.parentNode) this.input.focus() })
         this.input.addEventListener('input', (event) => this.userInput.textContent = this.input.value)
         this.input.addEventListener('blur', (event) => this.inputCaret.classList.remove('blink'))
@@ -35,15 +31,16 @@ class Terminal {
     }
 
     write(text) {
+        if (!text) return
         const div = document.createElement('div')
         div.textContent = text
         this.outputArea.appendChild(div)
     }
 
-    finishInput(write) {
+    finishInput(echoInput) {
         this.scrollContainer.removeChild(this.inputArea)
 
-        if (write) {
+        if (echoInput) {
             this.write(this.userPrompt.textContent + this.input.value)
         }
 
@@ -57,9 +54,19 @@ class Terminal {
         return userInput
     }
 
-    startInteractive() {
+    get echoHandler() {
+        return (text) => {
+            this.write(text)
+        }
+    }
+
+    startInteractive(handler, echoInput) {
         this.interactive = true
-        const loop = () => this.prompt().then(() => { if (this.interactive) loop() })
+        const loop = () => {
+            this.prompt(echoInput)
+            .then(handler)
+            .then(() => { if (this.interactive) loop() })
+        }
         loop()
     }
 
@@ -72,7 +79,10 @@ class Terminal {
         this.background.scrollTop = this.scrollContainer.scrollHeight
     }
 
-    prompt() {
+    prompt(echoInput) {
+        if(echoInput == undefined) {
+            echoInput = true
+        }
         this.scrollContainer.appendChild(this.inputArea)
         this.userPrompt.textContent = '>>> '
 
@@ -80,9 +90,14 @@ class Terminal {
 
         return new Promise((resolve, reject) => {
             const listener = (event) => {
+                if (event.keyCode == 67 && event.ctrlKey) {
+                    this.input.removeEventListener('keydown', listener)
+                    this.finishInput(false)
+                    reject("Keyboard Interrupt")
+                }
                 if (event.keyCode == 13) {
                     this.input.removeEventListener('keydown', listener)
-                    resolve(this.finishInput())
+                    resolve(this.finishInput(echoInput))
                 }
             }
             this.input.addEventListener('keydown', listener)
