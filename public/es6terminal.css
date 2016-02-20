@@ -2,12 +2,15 @@
     background-color: black;
     color: white;
     margin: 0;
-    padding: 10px;
     height: 100%;
     font-family: Consolas, monospace;
 
     overflow-y: scroll;
     word-break: break-all;
+}
+
+.terminal-scroll {
+    padding: 10px;
 }
 
 .terminal-output-area {
