@@ -10,16 +10,24 @@
         <div style="width: 600px; height: 250px;" class="terminal-host"></div>
         <button id="start-interactive">Start echo mode</button>
         <button id="stop-interactive">Stop echo mode</button>
-        <button id="prompt">Echo prompt</button>
+        <button id="echo-prompt">Echo prompt</button>
+        <button id="alert-prompt">Alert prompt</button>
         <script src="/es6terminal.js" charset="utf-8"></script>
         <script type="text/javascript">
             'use strict';
             var terminal = new Terminal(document.querySelector('.terminal-host'))
             terminal.setTheme('amber')
 
-            document.querySelector('#start-interactive').addEventListener('click', () => terminal.startInteractive(terminal.echoHandler))
+            terminal.writeLine('Welcome to the es6terminal demo')
+            terminal.prompt({
+                message: 'Enter your name:',
+                handler: (x) => `Hello ${x}!\nFeel free to try out the various buttons and interactions.`
+            })
+
+            document.querySelector('#start-interactive').addEventListener('click', () => terminal.startInteractive({handler: (x) => 'You entered: ' + x}))
             document.querySelector('#stop-interactive').addEventListener('click', () => terminal.stopInteractive())
-            document.querySelector('#prompt').addEventListener('click', () => terminal.prompt().then(terminal.echoHandler))
+            document.querySelector('#echo-prompt').addEventListener('click', () => terminal.prompt())
+            document.querySelector('#alert-prompt').addEventListener('click', () => terminal.prompt({handler: (x) => {alert(x);return 'alert closed'}}))
         </script>
     </body>
 </html>

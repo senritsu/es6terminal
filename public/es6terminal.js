@@ -41,21 +41,35 @@ class Terminal {
         this.input.addEventListener('focus', (event) => this.inputCaret.classList.add('blink'))
     }
 
+    writeLines(lines) {
+        for (var i = 0; i < lines.length; i++) {
+            this.writeLine(lines[i])
+        }
+    }
+
     writeLine(text, cssClass) {
-        if (!text) return
+        const lines = text.split('\n')
+        text = lines[0] || '\u00A0'
+
         const div = document.createElement('div')
         div.classList.add(cssClass || 'terminal-output-line')
         div.textContent = text
         this.outputArea.appendChild(div)
+
+        this.writeLines(lines.slice(1,lines.length))
     }
 
     write(text) {
-        if (!text) return
+        const lines = text.split('\n')
+        text = lines[0]
+
         const lastLine = this.outputArea.lastElementChild
         if (!lastLine) {
             this.writeLine(text)
         }
         lastLine.textContent = lastLine.textContent + text
+
+        this.writeLines(lines.slice(1,lines.length))
     }
 
     finishInput(echoInput) {
@@ -106,7 +120,7 @@ class Terminal {
 
     prompt(options) {
         if (this.listener) {
-            this.stopInteractive()
+            this.finishInput(false)
         }
 
         options = simpleExtendObject(options, {
@@ -121,8 +135,6 @@ class Terminal {
         this.scrollToBottom()
         this.focus()
 
-
-
         return new Promise((resolve, reject) => {
             this.listener = (event) => {
                 if (event.keyCode == 67 && event.ctrlKey) {
@@ -134,7 +146,9 @@ class Terminal {
                     const input = this.finishInput(options.echoInput)
                     const handlerMaybePromise = options.handler(input)
                     Promise.resolve(handlerMaybePromise)
-                    .then((result) => this.writeLine(result))
+                    .then((result) => {
+                        if(result !== undefined) this.writeLine(result)
+                    })
                     .then(resolve)
                 }
             }
