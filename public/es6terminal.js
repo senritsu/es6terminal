@@ -118,6 +118,11 @@ class Terminal {
         this.background.scrollTop = this.scrollContainer.scrollHeight
     }
 
+    setUserInput(input) {
+        this.input.value = input
+        this.userInput.textContent = input
+    }
+
     prompt(options) {
         if (this.listener) {
             this.finishInput(false)
@@ -137,12 +142,23 @@ class Terminal {
 
         return new Promise((resolve, reject) => {
             this.listener = (event) => {
+                if (event.keyCode == 38) {
+                    this.setUserInput('Not yet implemented: previous history entry')
+                }
+                if (event.keyCode == 40) {
+                    this.setUserInput('Not yet implemented: next history entry')
+                }
+                if (event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 38 || event.keyCode == 40) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
                 if (event.keyCode == 67 && event.ctrlKey) {
                     this.finishInput(false)
                     this.writeLine('^C => Keyboard Interrupt')
                     reject("Keyboard Interrupt")
                 }
-                if (event.keyCode == 13) {
+                else if (event.keyCode == 13) {
                     const input = this.finishInput(options.echoInput)
                     const handlerMaybePromise = options.handler(input)
                     Promise.resolve(handlerMaybePromise)
