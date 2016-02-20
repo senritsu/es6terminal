@@ -98,6 +98,7 @@ class Terminal {
         this.userPrompt.textContent = '>>>\u00A0'
 
         this.scrollToBottom()
+        this.focus()
 
         return new Promise((resolve, reject) => {
             const listener = (event) => {
@@ -113,6 +114,10 @@ class Terminal {
             }
             this.input.addEventListener('keydown', listener)
         })
+    }
+
+    focus() {
+        this.input.focus()
     }
 
     setTheme(theme) {
