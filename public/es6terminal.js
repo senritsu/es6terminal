@@ -3,7 +3,9 @@
 const simpleExtendObject = (obj1, obj2) => {
     obj1 = obj1 || {}
     for(let key in obj2) {
-        obj1[key] = obj2[key]
+        if (obj1[key] == undefined) {
+            obj1[key] = obj2[key]
+        }
     }
     return obj1
 }
@@ -81,11 +83,11 @@ class Terminal {
         }
     }
 
-    startInteractive(handler, echoInput) {
+    startInteractive(options) {
         this.interactive = true
+
         const loop = () => {
-            this.prompt(echoInput)
-            .then(handler)
+            this.prompt(options)
             .then(() => { if (this.interactive) loop() })
         }
         loop()
@@ -109,7 +111,8 @@ class Terminal {
 
         options = simpleExtendObject(options, {
             message:'>>>',
-            echoInput: true
+            echoInput: true,
+            handler: (input) => input
         })
 
         this.scrollContainer.appendChild(this.inputArea)
@@ -118,14 +121,21 @@ class Terminal {
         this.scrollToBottom()
         this.focus()
 
+
+
         return new Promise((resolve, reject) => {
             this.listener = (event) => {
                 if (event.keyCode == 67 && event.ctrlKey) {
                     this.finishInput(false)
+                    this.writeLine('^C => Keyboard Interrupt')
                     reject("Keyboard Interrupt")
                 }
                 if (event.keyCode == 13) {
-                    resolve(this.finishInput(options.echoInput))
+                    const input = this.finishInput(options.echoInput)
+                    const handlerMaybePromise = options.handler(input)
+                    Promise.resolve(handlerMaybePromise)
+                    .then((result) => this.writeLine(result))
+                    .then(resolve)
                 }
             }
             this.input.addEventListener('keydown', this.listener)
