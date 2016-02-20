@@ -64,6 +64,16 @@
     background-color: #7c70da;
 }
 
+.terminal-background[theme=char-custom] {
+    color: white;
+    background-color: #880909;
+}
+
+.terminal-background[theme=char-custom] .terminal-caret {
+    color: white;
+    background-color: white;
+}
+
 @keyframes blink {
     50% {
         opacity: 0;

@@ -104,4 +104,8 @@ class Terminal {
             this.input.addEventListener('keydown', listener)
         })
     }
+
+    setTheme(theme) {
+        this.background.setAttribute('theme', theme)
+    }
 }
