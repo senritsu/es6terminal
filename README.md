@@ -2,7 +2,13 @@
 
 ## About
 
-A pure es6/css3 terminal, inspired by https://github.com/eosterberg/terminaljs
+A multipurpose terminal written in pure es6/css3.
+
+![Screenshot of es6terminal](https://senritsu.github.io/es6terminal/images/screenshot_01.png)
+
+The terminal can be used as an interface for async communication with a server, or for pure javascript applications.
+
+The project was inspired by https://github.com/eosterberg/terminaljs
 
 ## Demo
 
