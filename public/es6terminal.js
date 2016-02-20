@@ -40,10 +40,10 @@ class Terminal {
         this.outputArea.appendChild(div)
     }
 
-    finishInput(write) {
+    finishInput(echoInput) {
         this.scrollContainer.removeChild(this.inputArea)
 
-        if (write) {
+        if (echoInput) {
             this.write(this.userPrompt.textContent + this.input.value)
         }
 
@@ -72,7 +72,10 @@ class Terminal {
         this.background.scrollTop = this.scrollContainer.scrollHeight
     }
 
-    prompt() {
+    prompt(echoInput) {
+        if(echoInput == undefined) {
+            echoInput = true
+        }
         this.scrollContainer.appendChild(this.inputArea)
         this.userPrompt.textContent = '>>> '
 
@@ -82,7 +85,7 @@ class Terminal {
             const listener = (event) => {
                 if (event.keyCode == 13) {
                     this.input.removeEventListener('keydown', listener)
-                    resolve(this.finishInput())
+                    resolve(this.finishInput(echoInput))
                 }
             }
             this.input.addEventListener('keydown', listener)
