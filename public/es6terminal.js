@@ -24,10 +24,6 @@ class Terminal {
         this.input.setAttribute('type','text')
         this.inputCaret.textContent = 'C'
 
-        for (var i = 0; i < 5; i++) {
-            this.write(`Test ${i}`)
-        }
-
         this.background.addEventListener('click', (event) => { if(this.inputArea.parentNode) this.input.focus() })
         this.input.addEventListener('input', (event) => this.userInput.textContent = this.input.value)
         this.input.addEventListener('blur', (event) => this.inputCaret.classList.remove('blink'))
