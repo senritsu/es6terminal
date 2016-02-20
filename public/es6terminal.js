@@ -92,8 +92,10 @@ class Terminal {
     }
 
     stopInteractive() {
-        this.interactive = false
-        this.finishInput(false)
+        if (this.interactive) {
+            this.interactive = false
+            this.finishInput(false)
+        }
     }
 
     scrollToBottom() {
