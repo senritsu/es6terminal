@@ -14,6 +14,7 @@ class Terminal {
     constructor(host) {
         this.element = host
         this.interactive = false
+        this.autoscroll = true
 
         const node = (tag, cssClass, parent) => {
             const node = document.createElement(tag)
