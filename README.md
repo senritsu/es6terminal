@@ -15,7 +15,6 @@ The project was inspired by [terminaljs](https://github.com/eosterberg/terminalj
 - [Description](#desc)
   - [Initialization](#init)
   - [Prompts](#prompts)
-  - [Prompt Options](#prompt-options)
   - [Input Handlers](#handlers)
     - [text](#text)
     - [JSON](#json)
@@ -62,8 +61,7 @@ In interactive mode any completed user input will automatically followed by a ne
 
 `Ctrl-C` can be used to cancel a prompt or interactive mode.
 
-<a name="prompt-options"/>
-### Prompt options
+##### Configuration
 
 Prompts and interactive mode can be configured using an options object. The default options object looks like this:
 
@@ -105,7 +103,7 @@ let echoHandler = terminal.handlers.echo()
 Replicates the default behaviour of the terminal, included for completeness.
 
 <a name="text"/>
-##### text
+##### Text
 
 ```javascript
 let ajaxTextHandler = terminal.handlers.ajaxText(url)
@@ -140,12 +138,17 @@ server says 3 * 3 = 9
 <a name="api"/>
 ### Additional API methods
 
+##### write
+
 ```javascript
 terminal.write(text)
 terminal.write(text, cssClass)
 ```
 
 Append text to the end of the current line
+
+##### writeLine
+##### writeLines
 
 ```javascript
 terminal.writeLine(text)
@@ -160,11 +163,15 @@ Add one or more lines to the terminal output.
 
 Unescaped `\n` characters in the text will split the text into multiple lines.
 
+##### scrollToBottom
+
 ```javascript
 terminal.scrollToBottom()
 ```
 
 Scrolls to the bottom of the output.
+
+##### setTheme
 
 ```javascript
 terminal.setTheme(theme)
@@ -172,11 +179,15 @@ terminal.setTheme(theme)
 
 Sets the color theme for the terminal. Valid values are `default`,`amber`, `green`, `c64` and `char-custom`.
 
+##### focus
+
 ```javascript
 terminal.focus()
 ```
 
 Focuses the terminal, enabling text input.
+
+##### finishInput
 
 ```javascript
 terminal.finishInput(echo)
