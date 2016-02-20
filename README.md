@@ -81,6 +81,38 @@ An empty string as output results in an empty line being written to the terminal
 
 `null` or `undefined` will be ignored and nothing will be written to the terminal.
 
+#### Builtin handler generators
+
+There exist a number of generator functions for simplifying handlers, located in the `terminal.handlers` property.
+
+```javascript
+let echoHandler = terminal.handlers.echo()
+```
+
+Replicates the default behaviour of the terminal, included for completeness.
+
+```javascript
+let ajaxTextHandler = terminal.handlers.ajaxText(url)
+```
+
+Communication using content type `text/plain`. `POST`s the input to the given `url` endpoint and outputs the response text to the terminal.
+
+```javascript
+let ajaxJsonHandler = terminal.handlers.ajaxJson(url, inputToObject, objectToOutput)
+```
+
+Communication using content type `application/json`. `inputToObject` is expected to transform the input text to a plain javascript object. The object is serialized and sent to the given `url`. `objectToOutput` is expected to transform the response javascript object into text that should be written to the terminal.
+
+Example:
+
+```javascript
+let inputToObject = (input) => ({ number: parseInt(input) })
+// server calculates square of the number and sends it back as {number: x, square: y}
+let objectToOutput = (response) => `${response.number} * ${response.number} = ${response.squared}`
+let handler = terminal.handlers.ajaxJson('http://localhost:3000/api/square', inputToObject, objectToOutput)
+terminal.prompt({message: 'type a number to be squared:', handler})
+```
+
 ### Additional API methods
 
 ```javascript
