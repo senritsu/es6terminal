@@ -26,7 +26,14 @@ Creates a new terminal hosted in the specified element. The terminal will fill t
 terminal.prompt()
 terminal.prompt(options)
 ```
-The user is prompted for input, returning a promise without a resolution value. The promise is resolved after the user input is submitted and any input handlers are finished.
+The user is prompted for input, returning a promise without a resolution value. 
+
+```javascript
+terminal.prompt().then(doSomethingElse).catch(handleErrors)
+terminal.prompt().then(() => console.log('prompt is completed'))
+```
+
+The promise is resolved after the user input is submitted and any input handlers are finished.
 
 ```javascript
 terminal.startInteractive()
