@@ -36,7 +36,10 @@ class Terminal {
         this.inputCaret.textContent = 'C'
 
         this.background.addEventListener('click', (event) => { if(this.inputArea.parentNode) this.input.focus() })
-        this.input.addEventListener('input', (event) => this.userInput.textContent = this.input.value)
+        this.input.addEventListener('input', (event) => {
+            this.userInput.textContent = this.input.value
+            this.scrollToBottom()
+        })
         this.input.addEventListener('blur', (event) => this.inputCaret.classList.remove('blink'))
         this.input.addEventListener('focus', (event) => this.inputCaret.classList.add('blink'))
     }
@@ -48,6 +51,8 @@ class Terminal {
     }
 
     writeLine(text, cssClass) {
+        const scrollToBottom = this.background.scrollTop == this.scrollContainer.scrollHeight
+
         const lines = text.split('\n')
         text = lines[0] || '\u00A0'
 
@@ -57,6 +62,8 @@ class Terminal {
         this.outputArea.appendChild(div)
 
         this.writeLines(lines.slice(1,lines.length))
+
+        if (this.autoscroll) this.scrollToBottom()
     }
 
     write(text, cssClass) {
@@ -67,7 +74,10 @@ class Terminal {
         if (!lastLine) {
             this.writeLine(text, cssClass)
         }
-        lastLine.textContent = lastLine.textContent + text
+        else{
+            lastLine.textContent = lastLine.textContent + text
+            if (this.autoscroll) this.scrollToBottom()
+        }
 
         this.writeLines(lines.slice(1,lines.length), cssClass)
     }
