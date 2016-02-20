@@ -41,9 +41,9 @@ class Terminal {
         this.input.addEventListener('focus', (event) => this.inputCaret.classList.add('blink'))
     }
 
-    writeLines(lines) {
+    writeLines(lines, cssClass) {
         for (var i = 0; i < lines.length; i++) {
-            this.writeLine(lines[i])
+            this.writeLine(lines[i], cssClass)
         }
     }
 
@@ -59,17 +59,17 @@ class Terminal {
         this.writeLines(lines.slice(1,lines.length))
     }
 
-    write(text) {
+    write(text, cssClass) {
         const lines = text.split('\n')
         text = lines[0]
 
         const lastLine = this.outputArea.lastElementChild
         if (!lastLine) {
-            this.writeLine(text)
+            this.writeLine(text, cssClass)
         }
         lastLine.textContent = lastLine.textContent + text
 
-        this.writeLines(lines.slice(1,lines.length))
+        this.writeLines(lines.slice(1,lines.length), cssClass)
     }
 
     finishInput(echoInput) {
