@@ -6,12 +6,19 @@
         <link rel="stylesheet" href="/es6terminal.css" media="screen" charset="utf-8">
     </head>
     <body>
-        <p>Test page for es6 terminal</p>
+        <h3>Test page for es6 terminal</h3>
         <div style="width: 600px; height: 250px;" class="terminal-host"></div>
+        <button id="start-interactive">Start echo mode</button>
+        <button id="stop-interactive">Stop echo mode</button>
+        <button id="prompt">Echo prompt</button>
         <script src="/es6terminal.js" charset="utf-8"></script>
         <script type="text/javascript">
             'use strict';
             var terminal = new Terminal(document.querySelector('.terminal-host'))
+
+            document.querySelector('#start-interactive').addEventListener('click', () => terminal.startInteractive(terminal.echoHandler))
+            document.querySelector('#stop-interactive').addEventListener('click', () => terminal.stopInteractive())
+            document.querySelector('#prompt').addEventListener('click', () => terminal.prompt().then(terminal.echoHandler))
         </script>
     </body>
 </html>
