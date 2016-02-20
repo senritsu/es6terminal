@@ -1,7 +1,5 @@
 # es6terminal
 
-## About
-
 A multipurpose terminal written in pure es6/css3, available under the MIT license.
 
 [![Screenshot of es6terminal](https://senritsu.github.io/es6terminal/images/screenshot_01.png)](http://senritsu.github.io/es6terminal)
