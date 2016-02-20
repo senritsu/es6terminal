@@ -18,8 +18,8 @@ class Terminal {
         this.scrollContainer = node('div', 'terminal-scroll', this.background)
         this.outputArea = node('p', 'terminal-output-area', this.scrollContainer)
         this.inputArea = node('p', 'terminal-input-area')
-        this.userPrompt = node('span', null, this.inputArea)
-        this.userInput = node('span', null, this.inputArea)
+        this.userPrompt = node('span', 'terminal-prompt', this.inputArea)
+        this.userInput = node('span', 'terminal-user-input', this.inputArea)
         this.inputCaret = node('span', 'terminal-caret', this.inputArea)
 
         this.input.setAttribute('type','text')
@@ -34,6 +34,7 @@ class Terminal {
     writeLine(text) {
         if (!text) return
         const div = document.createElement('div')
+        div.classList.add('terminal-output-line')
         div.textContent = text
         this.outputArea.appendChild(div)
     }
@@ -94,7 +95,7 @@ class Terminal {
             echoInput = true
         }
         this.scrollContainer.appendChild(this.inputArea)
-        this.userPrompt.textContent = '>>> '
+        this.userPrompt.textContent = '>>>\u00A0'
 
         this.scrollToBottom()
 

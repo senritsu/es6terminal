@@ -14,6 +14,15 @@
     margin: 0;
 }
 
+.terminal-output-area .terminal-output-line {
+    animation: fadein 0.3s ease-out;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 .terminal-input-area {
     margin: 0;
 }
@@ -26,6 +35,20 @@
 
 .terminal-input-area .terminal-caret.blink {
     animation: blink infinite 0.8s linear;
+}
+
+.terminal-input-area .terminal-prompt {
+    display: inline-block;
+    animation: slidein 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@keyframes slidein {
+    0% {
+        transform: translateX(-50px);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
 
 .terminal-background input {
