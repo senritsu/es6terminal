@@ -40,7 +40,7 @@ Creates a new terminal hosted in the specified element. The terminal will fill t
 terminal.prompt()
 terminal.prompt(options)
 ```
-The user is prompted for input, returning a promise. The promise is resolved with the output of the handler function.
+The user is prompted for input, returning a promise. The promise is resolved with the output of the handler function. The output of the handler function is also written to the terminal.
 
 ```javascript
 terminal.prompt().then(doSomethingElse).catch(handleErrors)
