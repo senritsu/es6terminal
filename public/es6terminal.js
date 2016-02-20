@@ -163,7 +163,8 @@ class Terminal {
                     const handlerMaybePromise = options.handler(input)
                     Promise.resolve(handlerMaybePromise)
                     .then((result) => {
-                        if(result !== undefined) this.writeLine(result)
+                        if(result !== undefined && result !== null) this.writeLine(result)
+                        return result
                     })
                     .then(resolve)
                 }
