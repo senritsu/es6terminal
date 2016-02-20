@@ -10,6 +10,31 @@ const simpleExtendObject = (obj1, obj2) => {
     return obj1
 }
 
+const echoHandlerFactory = () => (x) => x
+
+const ajaxTextHandlerFactory = (url) => (input) => {
+    return fetch(url, {
+        method: 'POST',
+        body: input,
+        headers: {
+            "Content-Type": "text/plain"
+        }
+    })
+    .then((response) => response.text())
+}
+
+const ajaxJsonHandlerFactory = (url, inputToObject, objectToOutput) => (input) => {
+    return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(inputToObject(input)),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then((response) => response.json())
+    .then((object) => objectToOutput(object))
+}
+
 class Terminal {
     constructor(host) {
         this.element = host
@@ -102,9 +127,11 @@ class Terminal {
         return userInput
     }
 
-    get echoHandler() {
-        return (text) => {
-            this.writeLine(text)
+    get handlers() {
+        return {
+            echo: echoHandlerFactory,
+            ajaxText: ajaxTextHandlerFactory,
+            ajaxJson: ajaxJsonHandlerFactory
         }
     }
 
