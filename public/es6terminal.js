@@ -57,6 +57,8 @@ class Terminal {
     }
 
     finishInput(echoInput) {
+        this.input.removeEventListener('keydown', this.listener)
+        this.listener = null
         this.scrollContainer.removeChild(this.inputArea)
 
         if (echoInput) {
@@ -90,8 +92,8 @@ class Terminal {
     }
 
     stopInteractive() {
-        this.finishInput()
         this.interactive = false
+        this.finishInput(false)
     }
 
     scrollToBottom() {
@@ -115,18 +117,16 @@ class Terminal {
         this.focus()
 
         return new Promise((resolve, reject) => {
-            const listener = (event) => {
+            this.listener = (event) => {
                 if (event.keyCode == 67 && event.ctrlKey) {
-                    this.input.removeEventListener('keydown', listener)
                     this.finishInput(false)
                     reject("Keyboard Interrupt")
                 }
                 if (event.keyCode == 13) {
-                    this.input.removeEventListener('keydown', listener)
                     resolve(this.finishInput(options.echoInput))
                 }
             }
-            this.input.addEventListener('keydown', listener)
+            this.input.addEventListener('keydown', this.listener)
         })
     }
 
