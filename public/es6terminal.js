@@ -31,18 +31,27 @@ class Terminal {
         this.input.addEventListener('focus', (event) => this.inputCaret.classList.add('blink'))
     }
 
-    write(text) {
+    writeLine(text) {
         if (!text) return
         const div = document.createElement('div')
         div.textContent = text
         this.outputArea.appendChild(div)
     }
 
+    write(text) {
+        if (!text) return
+        const lastLine = this.outputArea.lastElementChild
+        if (!lastLine) {
+            this.writeLine(text)
+        }
+        lastLine.textContent = lastLine.textContent + text
+    }
+
     finishInput(echoInput) {
         this.scrollContainer.removeChild(this.inputArea)
 
         if (echoInput) {
-            this.write(this.userPrompt.textContent + this.input.value)
+            this.writeLine(this.userPrompt.textContent + this.input.value)
         }
 
         const userInput = this.input.value
@@ -57,7 +66,7 @@ class Terminal {
 
     get echoHandler() {
         return (text) => {
-            this.write(text)
+            this.writeLine(text)
         }
     }
 
