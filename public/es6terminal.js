@@ -1,5 +1,13 @@
 'use strict';
 
+const simpleExtendObject = (obj1, obj2) => {
+    obj1 = obj1 || {}
+    for(let key in obj2) {
+        obj1[key] = obj2[key]
+    }
+    return obj1
+}
+
 class Terminal {
     constructor(host) {
         this.element = host
@@ -90,12 +98,18 @@ class Terminal {
         this.background.scrollTop = this.scrollContainer.scrollHeight
     }
 
-    prompt(echoInput) {
-        if(echoInput == undefined) {
-            echoInput = true
+    prompt(options) {
+        if (this.listener) {
+            this.stopInteractive()
         }
+
+        options = simpleExtendObject(options, {
+            message:'>>>',
+            echoInput: true
+        })
+
         this.scrollContainer.appendChild(this.inputArea)
-        this.userPrompt.textContent = '>>>\u00A0'
+        this.userPrompt.textContent = `${options.message}\u00A0`
 
         this.scrollToBottom()
         this.focus()
@@ -109,7 +123,7 @@ class Terminal {
                 }
                 if (event.keyCode == 13) {
                     this.input.removeEventListener('keydown', listener)
-                    resolve(this.finishInput(echoInput))
+                    resolve(this.finishInput(options.echoInput))
                 }
             }
             this.input.addEventListener('keydown', listener)
