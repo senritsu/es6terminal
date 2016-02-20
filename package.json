@@ -1,0 +1,15 @@
+{
+  "name": "es6terminal",
+  "version": "0.1.0",
+  "description": "A simple javascript terminal written in pure ES6",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "senritsu",
+  "license": "MIT",
+  "devDependencies": {
+    "express": "^4.13.4"
+  }
+}
