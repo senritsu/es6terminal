@@ -2,11 +2,11 @@
 
 A multipurpose terminal written in pure es6/css3, available under the MIT license.
 
-[![Screenshot of es6terminal](https://senritsu.github.io/es6terminal/images/screenshot_01.png)](http://senritsu.github.io/es6terminal)
+[![Screenshot of es6terminal](https://senritsu.github.io/demos/es6terminal/screenshot_01.png)](http://senritsu.github.io/demos/es6terminal)
 
 The terminal can be used as an interface for async communication with a server, or for pure javascript applications.
 
-Demo available at http://senritsu.github.io/es6terminal
+Demo available at http://senritsu.github.io/demos/es6terminal
 
 The project was inspired by [terminaljs](https://github.com/eosterberg/terminaljs)
 
