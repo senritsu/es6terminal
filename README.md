@@ -28,9 +28,9 @@ The project was inspired by [terminaljs](https://github.com/eosterberg/terminalj
 ### Initialization
 
 ```javascript
-var terminal = new Terminal(queryString)
-var terminal = new Terminal('#some-id')
-var terminal = new Terminal('.some-class')
+const terminal = new Terminal(queryString)
+const terminal = new Terminal('#some-id')
+const terminal = new Terminal('.some-class')
 ```
 
 Creates a new terminal hosted in the specified element. The terminal will fill the element completely.
@@ -47,7 +47,7 @@ The user is prompted for input, returning a promise. The promise is resolved wit
 
 ```javascript
 terminal.prompt().then(doSomethingElse).catch(handleErrors)
-terminal.prompt().then((output) => console.log(`prompt is completed, ${output} was written to the terminal.`))
+terminal.prompt().then(output => console.log(`prompt is completed, ${output} was written to the terminal.`))
 ```
 
 The promise is resolved after the user input is submitted, input handlers are finished and the output was written to the terminal.
@@ -74,7 +74,7 @@ Prompts and interactive mode can be configured using an options object. The defa
 {
   message: '>>>',
   echoInput: true,
-  handler: (input) => input
+  handler: input => input
 }
 ```
 
@@ -86,11 +86,11 @@ Prompts and interactive mode can be configured using an options object. The defa
 
 ### Input handlers
 
-An input handler takes the form `(input) => output`, where `input` is the text submitted by the user, and `output` is what should be written back to the terminal.
+An input handler takes the form `input => output`, where `input` is the text submitted by the user, and `output` is what should be written back to the terminal.
 
 Input handlers can return promises for async processing.
 
-The default input handler `(input) => input` writes a simple echo of the user input.
+The default input handler `input => input` writes a simple echo of the user input.
 
 #### Special cases for output values
 
@@ -103,7 +103,7 @@ An empty string as output results in an empty line being written to the terminal
 There exist a number of generator functions for simplifying handlers, located in the `terminal.handlers` property.
 
 ```javascript
-let echoHandler = terminal.handlers.echo()
+const echoHandler = terminal.handlers.echo()
 ```
 
 Replicates the default behaviour of the terminal, included for completeness.
@@ -113,7 +113,7 @@ Replicates the default behaviour of the terminal, included for completeness.
 ##### Text
 
 ```javascript
-let ajaxTextHandler = terminal.handlers.ajaxText(url)
+const ajaxTextHandler = terminal.handlers.ajaxText(url)
 ```
 
 Communication using content type `text/plain`. `POST`s the input to the given `url` endpoint and outputs the response text to the terminal.
@@ -123,7 +123,7 @@ Communication using content type `text/plain`. `POST`s the input to the given `u
 ##### JSON
 
 ```javascript
-let ajaxJsonHandler = terminal.handlers.ajaxJson(url, inputToObject, objectToOutput)
+const ajaxJsonHandler = terminal.handlers.ajaxJson(url, inputToObject, objectToOutput)
 ```
 
 Communication using content type `application/json`. `inputToObject` is expected to transform the input text to a plain javascript object. The object is serialized and sent to the given `url`. `objectToOutput` is expected to transform the response javascript object into text that should be written to the terminal.
