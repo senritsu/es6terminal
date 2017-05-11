@@ -28,7 +28,7 @@ The project was inspired by [terminaljs](https://github.com/eosterberg/terminalj
 ### Initialization
 
 ```javascript
-const terminal = new Terminal(queryString)
+const terminal = new Terminal(selector)
 const terminal = new Terminal('#some-id')
 const terminal = new Terminal('.some-class')
 ```
