@@ -20,9 +20,11 @@ The project was inspired by [terminaljs](https://github.com/eosterberg/terminalj
 - [License (MIT)](#license)
 
 <a name="desc"/>
+
 ## Description
 
 <a name="init"/>
+
 ### Initialization
 
 ```javascript
@@ -34,6 +36,7 @@ var terminal = new Terminal('.some-class')
 Creates a new terminal hosted in the specified element. The terminal will fill the element completely.
 
 <a name="prompts"/>
+
 ### Prompts
 
 ```javascript
@@ -80,6 +83,7 @@ Prompts and interactive mode can be configured using an options object. The defa
 `handler` is an input handler to be used.
 
 <a name="handlers"/>
+
 ### Input handlers
 
 An input handler takes the form `(input) => output`, where `input` is the text submitted by the user, and `output` is what should be written back to the terminal.
@@ -105,6 +109,7 @@ let echoHandler = terminal.handlers.echo()
 Replicates the default behaviour of the terminal, included for completeness.
 
 <a name="text"/>
+
 ##### Text
 
 ```javascript
@@ -114,6 +119,7 @@ let ajaxTextHandler = terminal.handlers.ajaxText(url)
 Communication using content type `text/plain`. `POST`s the input to the given `url` endpoint and outputs the response text to the terminal.
 
 <a name="json"/>
+
 ##### JSON
 
 ```javascript
@@ -138,6 +144,7 @@ server says 3 * 3 = 9
 ```
 
 <a name="api"/>
+
 ### Additional API methods
 
 ##### write
@@ -198,6 +205,7 @@ terminal.finishInput(echo)
 Cancels the current prompt or interactive mode. `true` for the `echo` parameter results in the current prompt and input being echoed to the terminal. Defaults to `false`.
 
 <a name="license"/>
+
 ## License
 
 The MIT License (MIT)
