@@ -131,9 +131,9 @@ Communication using content type `application/json`. `inputToObject` is expected
 ###### Example
 
 ```javascript
-let inputToObject = (input) => ({ number: parseInt(input) })
+let inputToObject = input => ({ number: parseInt(input) })
 // server calculates square of the number and sends it back as {number: x, square: y}
-let objectToOutput = (response) => `server says ${response.number} * ${response.number} = ${response.squared}`
+let objectToOutput = response => `server says ${response.number} * ${response.number} = ${response.squared}`
 let handler = terminal.handlers.ajaxJson('http://localhost:3000/api/square', inputToObject, objectToOutput)
 terminal.prompt({message: 'type a number to be squared:', handler})
 ```
